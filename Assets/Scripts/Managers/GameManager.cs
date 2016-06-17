@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
     public Faixas[] faixas;
     public float intervalo;
 	public GameObject logo;
-    private int interval = 1;
+	private float interval = 1;
     private float nextTime = 0;
     // Use this for initialization
     void Start()
@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour {
     }
 
     void Awake() {
-        interval = 1;
+        interval = 1.5f;
         nextTime = 0;
 }
     // Paineis //

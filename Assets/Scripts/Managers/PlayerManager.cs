@@ -21,10 +21,10 @@ public class PlayerManager : MonoBehaviour {
         }
         if (isPulando)
         {
-            if (this.transform.position.y < 15 && isSubindo)
+            if (this.transform.position.y < 10 && isSubindo)
             {
                 this.transform.position = new Vector3(transform.position.x, transform.position.y + (speed * Time.deltaTime), transform.position.z);
-            }else if (this.transform.position.y > 15 || isDescendo)
+            }else if (this.transform.position.y > 10 || isDescendo)
             {
                 if (this.transform.position.y > 0)
                 {
@@ -44,7 +44,7 @@ public class PlayerManager : MonoBehaviour {
     {
         if(collision.gameObject.tag == "Mortais")
         {
-            GetComponent<Rigidbody>().velocity = goto2.transform.position;
+            //GetComponent<Rigidbody>().velocity = goto2.transform.position;
 
         }
 
