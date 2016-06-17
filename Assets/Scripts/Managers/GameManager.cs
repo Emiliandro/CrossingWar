@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour {
         scenes[2].SetActive(false); //painel de game
     }
     public void SairJogo() {
+		interval = 1.5f;
+		nextTime = 0;
         SceneManager.LoadScene(Application.loadedLevel);
     }
 
