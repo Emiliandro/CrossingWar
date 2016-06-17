@@ -20,6 +20,10 @@ public class GameManager : MonoBehaviour {
         scenes[2].SetActive(false); //painel de game
     }
 
+    void Awake() {
+        interval = 1;
+        nextTime = 0;
+}
     // Paineis //
 
     public void PlayIt() {
