@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour {
     public GameObject MenuInicial;
     public Faixas[] faixas;
     public float intervalo;
-
+	public GameObject logo;
     private int interval = 1;
     private float nextTime = 0;
     // Use this for initialization
@@ -46,7 +46,15 @@ public class GameManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update()
-    {
+	{
+		if (scenes[0].activeSelf)
+		{
+			logo.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+		} else if (scenes[1].activeSelf)
+		{
+			logo.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+
+		}
         if (scenes[2].activeSelf)
         {
             MenuInicial.SetActive(false);
