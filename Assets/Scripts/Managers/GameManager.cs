@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour {
         scenes[0].SetActive(false); //painel de menu
         scenes[1].SetActive(false); //painel de sobre
         scenes[2].SetActive(true); //painel de game
+        SwipeDetector.instance.GameStarted();
+        SwipeMobileDetector.instance.GameStarted();
     }
     public void LerSobre() {
         Time.timeScale = 0;

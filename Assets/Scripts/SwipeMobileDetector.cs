@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class SwipeMobileDetector : MonoBehaviour {
-	
+    public static SwipeMobileDetector instance;
 	
 	private float fingerStartTime  = 0.0f;
 	private Vector2 fingerStartPos = Vector2.zero;
@@ -10,10 +10,29 @@ public class SwipeMobileDetector : MonoBehaviour {
 	private bool isSwipe = false;
 	private float minSwipeDist  = 50.0f;
 	private float maxSwipeTime = 0.5f;
-	
-	
-	// Update is called once per frame
-	void Update () {
+
+    private bool start = false;
+    private Vector3 E, C, D;
+
+    // Use this for initialization
+    void Start()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        E = new Vector3(24, 0, 0);
+        C = new Vector3(14, 0, 0);
+        D = new Vector3(4, 0, 0);
+
+    }
+    public void GameStarted()
+    {
+        start = true;
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 		if (Input.touchCount > 0){
 			
@@ -53,11 +72,28 @@ public class SwipeMobileDetector : MonoBehaviour {
 						if(swipeType.x != 0.0f){
 							if(swipeType.x > 0.0f){
 								// MOVE RIGHT
-								BroadcastMessage("SwipeRight");
-							}else{
+								//BroadcastMessage("SwipeRight");
+                                    if (!(this.transform.position.x == E.x))
+                                    {
+                                        if (!(this.transform.position.x == C.x))
+                                        {
+                                            this.transform.position = C;
+                                        }
+                                        else this.transform.position = E;
+                                    }
+                                }
+                                else{
 								// MOVE LEFT
-								BroadcastMessage("SwipeLeft");
-							}
+								//BroadcastMessage("SwipeLeft");
+                                    if (!(this.transform.position.x == D.x))
+                                    {
+                                        if (!(this.transform.position.x == C.x))
+                                        {
+                                            this.transform.position = C;
+                                        }
+                                        else this.transform.position = D;
+                                    }
+                                }
 						}
 						
 						if(swipeType.y != 0.0f ){

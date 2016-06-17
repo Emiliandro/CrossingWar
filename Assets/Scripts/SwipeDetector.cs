@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class SwipeDetector : MonoBehaviour {
+    public static SwipeDetector instance;
 	
 	private const int mMessageWidth  = 200;
 	private const int mMessageHeight = 64;
@@ -19,13 +20,28 @@ public class SwipeDetector : MonoBehaviour {
 	// should be at least mMinVelocity
 	// Reduce or increase to control the swipe speed
 	private const float mMinVelocity  = 400.0f;
-	
 	private Vector2 mStartPosition;
 	private float mSwipeStartTime;
+
+    private bool start = false;
+    private Vector3 E, C, D;
 	
 	// Use this for initialization
 	void Start () {
-	}
+        if (instance == null)
+        {
+            instance = this;
+        }
+        E = new Vector3(24, 0, 0);
+        C = new Vector3(14, 0, 0);
+        D = new Vector3(4, 0, 0);
+
+    }
+
+    public void GameStarted()
+    {
+        start = true;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -58,17 +74,17 @@ public class SwipeDetector : MonoBehaviour {
 
 
 				// Detect left and right swipe
-				if (angleOfSwipe < mAngleRange) {
+				if ((angleOfSwipe < mAngleRange) && start) {
 					OnSwipeRight();
-				} else if ((180.0f - angleOfSwipe) < mAngleRange) {
+				} else if (((180.0f - angleOfSwipe) < mAngleRange) && start) {
 					OnSwipeLeft();
 				} else {
 					// Detect top and bottom swipe
 					angleOfSwipe = Vector2.Dot(swipeVector, mYAxis);
 					angleOfSwipe = Mathf.Acos(angleOfSwipe) * Mathf.Rad2Deg;
-					if (angleOfSwipe < mAngleRange) {
+					if ((angleOfSwipe < mAngleRange)&& start) {
 						OnSwipeTop();
-					} else if ((180.0f - angleOfSwipe) < mAngleRange) {
+					} else if (((180.0f - angleOfSwipe) < mAngleRange)&& start) {
 						OnSwipeBottom();
 					} else {
 						// no swipe detected
@@ -80,14 +96,31 @@ public class SwipeDetector : MonoBehaviour {
 
 	
 	private void OnSwipeLeft() {
-		Debug.Log ("swipe left");
-		BroadcastMessage("SwipeLeft");
+        /*Debug.Log ("swipe left");
+		BroadcastMessage("SwipeLeft");*/
+        if (!(this.transform.position.x == E.x))
+        {
+            if (!(this.transform.position.x == C.x))
+            {
+                this.transform.position = C;
+            }
+            else this.transform.position = E;
+        }
+        
 	}
 	
 	private void OnSwipeRight() {
-		Debug.Log ("swipe right");
-		BroadcastMessage("SwipeRight");
-	}
+        /*Debug.Log ("swipe right");
+		BroadcastMessage("SwipeRight");*/
+        if (!(this.transform.position.x == D.x))
+        {
+            if (!(this.transform.position.x == C.x))
+            {
+                this.transform.position = C;
+            }
+            else this.transform.position = D;
+        }
+    }
 	
 	private void OnSwipeTop() {
 		Debug.Log ("swipe up");
