@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour {
     public float speed = 0f;
@@ -8,7 +10,9 @@ public class PlayerManager : MonoBehaviour {
     public Text texto;
     public int total;
     public GameObject goto1, goto2;
-
+    public GameObject char1;
+    public GameObject char2;
+    public GameObject char3;
     void Update()
     {
         if (Input.GetKey(KeyCode.Space))
@@ -60,5 +64,58 @@ public class PlayerManager : MonoBehaviour {
             texto.text = (Mathf.RoundToInt(total)).ToString();
 
         }
+    }
+    public void CharacterSelectionSoldier()
+    {
+
+        
+        SetCharacterSelecionado(0);
+        //PlayerPrefs.SetInt ("Reload",1);
+        //Application.LoadLevel("Main");
+
+    }
+
+    public void CharacterSelectionNazie()
+    {
+
+
+        //PlayerPrefs.SetInt ("Reload",1);
+        SetCharacterSelecionado(1);
+        //Application.LoadLevel("Main");
+    }
+
+    public void CharacterSelectionZumbie()
+    {
+
+        //PlayerPrefs.SetInt ("Reload",1);
+        SetCharacterSelecionado(2);
+        //Application.LoadLevel("Main");
+    }
+
+    void SetCharacterSelecionado(int selected)
+    {
+
+        switch (selected)
+        {
+            case 0:
+                Debug.Log("Selecionou o Soldado");
+                char1.SetActive(true);
+                char2.SetActive(false);
+                char3.SetActive(false);               
+                break;
+            case 1:
+                Debug.Log("Selecionou o Nazista");
+                char1.SetActive(false);
+                char2.SetActive(true);
+                char3.SetActive(false);
+                break;
+            case 2:
+            Debug.Log("Selecionou o Zumbie");
+                char1.SetActive(false);
+                char2.SetActive(false);
+                char3.SetActive(true);
+                break;
+        }
+
     }
 }

@@ -1,7 +1,7 @@
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{5A35B50F-A537-1805-FFE8-C625FC152DF0}") = "CrossingWar", "Assembly-CSharp.csproj", "{295E27B0-D272-EB50-6CA8-E401CAE25579}"
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossingWar.CSharp", "CrossingWar.CSharp.csproj", "{714CC54C-AFD0-3E92-C278-20EDA59B1715}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,15 +9,12 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{295E27B0-D272-EB50-6CA8-E401CAE25579}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{295E27B0-D272-EB50-6CA8-E401CAE25579}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{295E27B0-D272-EB50-6CA8-E401CAE25579}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{295E27B0-D272-EB50-6CA8-E401CAE25579}.Release|Any CPU.Build.0 = Release|Any CPU
+		{714CC54C-AFD0-3E92-C278-20EDA59B1715}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{714CC54C-AFD0-3E92-C278-20EDA59B1715}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{714CC54C-AFD0-3E92-C278-20EDA59B1715}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{714CC54C-AFD0-3E92-C278-20EDA59B1715}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal

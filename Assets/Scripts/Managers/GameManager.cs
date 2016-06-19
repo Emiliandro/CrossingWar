@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour {
         Time.timeScale = 0;
         scenes[1].SetActive(false); //painel de sobre
         scenes[2].SetActive(false); //painel de game
+        scenes[3].SetActive(false); //painel de game
     }
 
     void Awake() {
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour {
         scenes[0].SetActive(false); //painel de menu
         scenes[1].SetActive(false); //painel de sobre
         scenes[2].SetActive(true); //painel de game
+        scenes[3].SetActive(false); //painel de game
         SwipeDetector.instance.GameStarted();
         SwipeMobileDetector.instance.GameStarted();
     }
@@ -39,12 +41,22 @@ public class GameManager : MonoBehaviour {
         scenes[0].SetActive(false); //painel de menu
         scenes[1].SetActive(true); //painel de sobre
         scenes[2].SetActive(false); //painel de game
+        scenes[3].SetActive(false); //painel de game
+    }
+    public void SelectPlayer()
+    {
+        Time.timeScale = 0;
+        scenes[0].SetActive(false); //painel de menu
+        scenes[1].SetActive(false); //painel de sobre
+        scenes[2].SetActive(false); //painel de game
+        scenes[3].SetActive(true); //painel de game
     }
     public void chamarMenu() {
         Time.timeScale = 0;
         scenes[0].SetActive(true); //painel de menu
         scenes[1].SetActive(false); //painel de sobre
         scenes[2].SetActive(false); //painel de game
+        scenes[3].SetActive(false); //painel de game
     }
     public void SairJogo() {
 		interval = 1.5f;
