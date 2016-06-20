@@ -1,4 +1,4 @@
-﻿    using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class SwipeMobileDetector : MonoBehaviour {
@@ -16,9 +16,12 @@ public class SwipeMobileDetector : MonoBehaviour {
     private bool start = false;
     private Vector3 E, C, D;
 
+    public GameObject Player;
+
     // Use this for initialization
     void Start()
     {
+        Player = GameObject.FindGameObjectWithTag("Player");
         if (instance == null)
         {
             instance = this;
@@ -31,6 +34,33 @@ public class SwipeMobileDetector : MonoBehaviour {
     public void GameStarted()
     {
         start = true;
+    }
+
+    void FixedUpdate()
+    {
+        if (isPulando)
+        {
+            if (Player.transform.position.y < 20 && isSubindo)
+            {
+                Player.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + ((speed + 1) * Time.deltaTime), Player.transform.position.z);
+            }
+            else if (Player.transform.position.y > 20 || isDescendo)
+            {
+                if (Player.transform.position.y > 0)
+                {
+                    isSubindo = false;
+                    isDescendo = true;
+                }
+                else isDescendo = false;
+                Player.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y - ((speed + 3) * Time.deltaTime), Player.transform.position.z);
+            }
+            else
+            {
+                isPulando = false;
+            }
+
+
+        }
     }
 
     // Update is called once per frame
@@ -77,23 +107,26 @@ public class SwipeMobileDetector : MonoBehaviour {
                                     //BroadcastMessage("SwipeRight");
                                     if (!(this.transform.position.x == D.x))
                                     {
-                                        if (!(this.transform.position.x == C.x))
+                                        if (!(Player.transform.position.x == C.x))
                                         {
-                                            this.transform.position = C;
                                         }
-                                        else this.transform.position = D;
+                                        else if (Player.transform.position.x == E.x)
+                                        {
+                                            Player.transform.position = C;
+                                        }
+                                        else Player.transform.position = D;
                                     }
                                 }
                                 else{
                                     // MOVE LEFT
                                     //BroadcastMessage("SwipeLeft");
-                                    if (!(this.transform.position.x == E.x))
+                                    if (!(Player.transform.position.x == E.x))
                                     {
-                                        if (!(this.transform.position.x == C.x))
+                                        if (!(Player.transform.position.x == C.x))
                                         {
-                                            this.transform.position = C;
+                                            Player.transform.position = C;
                                         }
-                                        else this.transform.position = E;
+                                        else Player.transform.position = E;
                                     }
                                     
                                 }
@@ -107,30 +140,7 @@ public class SwipeMobileDetector : MonoBehaviour {
                                         isPulando = true;
                                         isSubindo = true;
                                     }
-                                    if (isPulando)
-                                    {
-                                        if (this.transform.position.y < 10 && isSubindo)
-                                        {
-                                            this.transform.position = new Vector3(transform.position.x, transform.position.y + (speed * Time.deltaTime), transform.position.z);
-                                        }
-                                        else if (this.transform.position.y > 10 || isDescendo)
-                                        {
-                                            if (this.transform.position.y > 0)
-                                            {
-                                                isSubindo = false;
-                                                isDescendo = true;
-                                            }
-                                            else isDescendo = false;
-                                            this.transform.position = new Vector3(transform.position.x, transform.position.y - ((speed * 0.75f) * Time.deltaTime), transform.position.z);
-                                        }
-                                        else
-                                        {
-                                            isPulando = false;
-                                        }
-                                    
-
-                                    BroadcastMessage("SwipeUp");
-                                }
+                                 
                             }
                             else{
 								// MOVE DOWN

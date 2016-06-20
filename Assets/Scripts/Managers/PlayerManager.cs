@@ -36,7 +36,7 @@ public class PlayerManager : MonoBehaviour {
                     isDescendo = true;
                 }
                 else isDescendo = false;
-                this.transform.position = new Vector3(transform.position.x, transform.position.y - ((speed * 0.75f) * Time.deltaTime), transform.position.z);
+                this.transform.position = new Vector3(transform.position.x, transform.position.y - ((speed +4) * Time.deltaTime), transform.position.z);
             }
             else
             {

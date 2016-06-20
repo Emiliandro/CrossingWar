@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour {
         ouvido.clip = gameplay[Random.Range(0, gameplay.Length)];
         ouvido.Play();
         SwipeDetector.instance.GameStarted();
-        SwipeMobileDetector.instance.GameStarted();
+        //SwipeMobileDetector.instance.GameStarted();
     }
     public void LerSobre() {
         Time.timeScale = 0;
@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate()
 	{
-		if (scenes[0].activeSelf)
+		if (scenes[0].activeSelf || scenes[3].activeSelf)
 		{
 			logo.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
 		} else if (scenes[1].activeSelf)

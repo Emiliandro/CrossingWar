@@ -49,11 +49,11 @@ public class SwipeDetector : MonoBehaviour {
 	void Update () {
         if (isPulando)
         {
-            if (this.transform.position.y < 10 && isSubindo)
+            if (this.transform.position.y < 15 && isSubindo)
             {
-                this.transform.position = new Vector3(transform.position.x, transform.position.y + (speed * Time.deltaTime), transform.position.z);
+                this.transform.position = new Vector3(transform.position.x, transform.position.y + ((speed +1) * Time.deltaTime), transform.position.z);
             }
-            else if (this.transform.position.y > 10 || isDescendo)
+            else if (this.transform.position.y > 15 || isDescendo)
             {
                 if (this.transform.position.y > 0)
                 {
@@ -61,7 +61,7 @@ public class SwipeDetector : MonoBehaviour {
                     isDescendo = true;
                 }
                 else isDescendo = false;
-                this.transform.position = new Vector3(transform.position.x, transform.position.y - (speed * Time.deltaTime), transform.position.z);
+                this.transform.position = new Vector3(transform.position.x, transform.position.y - ((speed + 3) * Time.deltaTime), transform.position.z);
             }
             else
             {
