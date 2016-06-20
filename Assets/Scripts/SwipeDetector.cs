@@ -3,8 +3,10 @@ using System.Collections;
 
 public class SwipeDetector : MonoBehaviour {
     public static SwipeDetector instance;
-	
-	private const int mMessageWidth  = 200;
+    public bool isPulando = false, isSubindo = false, isDescendo = false;
+    public float speed = 0f;
+
+    private const int mMessageWidth  = 200;
 	private const int mMessageHeight = 64;
 	
 	private readonly Vector2 mXAxis = new Vector2(1, 0);
@@ -45,8 +47,30 @@ public class SwipeDetector : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		// Mouse button down, possible chance for a swipe
-		if (Input.GetMouseButtonDown(0)) {
+        if (isPulando)
+        {
+            if (this.transform.position.y < 10 && isSubindo)
+            {
+                this.transform.position = new Vector3(transform.position.x, transform.position.y + (speed * Time.deltaTime), transform.position.z);
+            }
+            else if (this.transform.position.y > 10 || isDescendo)
+            {
+                if (this.transform.position.y > 0)
+                {
+                    isSubindo = false;
+                    isDescendo = true;
+                }
+                else isDescendo = false;
+                this.transform.position = new Vector3(transform.position.x, transform.position.y - (speed * Time.deltaTime), transform.position.z);
+            }
+            else
+            {
+                isPulando = false;
+            }
+        }
+
+        // Mouse button down, possible chance for a swipe
+        if (Input.GetMouseButtonDown(0)) {
 			// Record start time and position
 			mStartPosition = new Vector2(Input.mousePosition.x,
 			                             Input.mousePosition.y);
@@ -124,10 +148,17 @@ public class SwipeDetector : MonoBehaviour {
 	
 	private void OnSwipeTop() {
 		Debug.Log ("swipe up");
-		BroadcastMessage("SwipeUp");
-	}
-	
-	private void OnSwipeBottom() {
+        if (!isPulando)
+        {
+            isPulando = true;
+            isSubindo = true;
+        }
+
+        Debug.Log("swipe up");
+
+    }
+
+    private void OnSwipeBottom() {
 		Debug.Log ("swipe down");
 		BroadcastMessage("SwipeDown");
 	}

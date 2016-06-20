@@ -11,6 +11,15 @@ public class FaixasController : MonoBehaviour {
             Destroy(transform.parent.gameObject);
         }
     }
- 
-
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Mortais")
+        {
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.tag == "money")
+        {
+            Destroy(gameObject);
+        }
+    }
 }

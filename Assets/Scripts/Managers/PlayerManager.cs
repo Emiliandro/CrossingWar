@@ -9,10 +9,10 @@ public class PlayerManager : MonoBehaviour {
     public bool isPulando = false, isSubindo = false, isDescendo = false;
     public Text texto;
     public int total;
-    public GameObject goto1, goto2;
     public GameObject char1;
     public GameObject char2;
     public GameObject char3;
+    public AudioSource ouvido;
     void Update()
     {
         if (Input.GetKey(KeyCode.Space))
@@ -36,7 +36,7 @@ public class PlayerManager : MonoBehaviour {
                     isDescendo = true;
                 }
                 else isDescendo = false;
-                this.transform.position = new Vector3(transform.position.x, transform.position.y - (speed * Time.deltaTime), transform.position.z);
+                this.transform.position = new Vector3(transform.position.x, transform.position.y - ((speed * 0.75f) * Time.deltaTime), transform.position.z);
             }
             else
             {
@@ -48,15 +48,11 @@ public class PlayerManager : MonoBehaviour {
     {
         if(collision.gameObject.tag == "Mortais")
         {
-            //GetComponent<Rigidbody>().velocity = goto2.transform.position;
-
-        }
-
-        if (collision.gameObject.tag == "Finish")
-        {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             Time.timeScale = 0;
+            ouvido.Stop();
         }
+
         if (collision.gameObject.tag == "money")
         {
             total++;
@@ -94,28 +90,26 @@ public class PlayerManager : MonoBehaviour {
 
     void SetCharacterSelecionado(int selected)
     {
-
-        switch (selected)
-        {
-            case 0:
-                Debug.Log("Selecionou o Soldado");
-                char1.SetActive(true);
-                char2.SetActive(false);
-                char3.SetActive(false);               
-                break;
-            case 1:
-                Debug.Log("Selecionou o Nazista");
-                char1.SetActive(false);
-                char2.SetActive(true);
-                char3.SetActive(false);
-                break;
-            case 2:
-            Debug.Log("Selecionou o Zumbie");
-                char1.SetActive(false);
-                char2.SetActive(false);
-                char3.SetActive(true);
-                break;
-        }
-
+            switch (selected)
+            {
+                case 0:
+                    Debug.Log("Selecionou o Soldado");
+                    char1.SetActive(true);
+                    char2.SetActive(false);
+                    char3.SetActive(false);
+                    break;
+                case 1:
+                    Debug.Log("Selecionou o Nazista");
+                    char1.SetActive(false);
+                    char2.SetActive(true);
+                    char3.SetActive(false);
+                    break;
+                case 2:
+                    Debug.Log("Selecionou o Zumbie");
+                    char1.SetActive(false);
+                    char2.SetActive(false);
+                    char3.SetActive(true);
+                    break;
+            }
     }
 }

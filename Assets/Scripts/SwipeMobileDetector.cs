@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿    using UnityEngine;
 using System.Collections;
 
 public class SwipeMobileDetector : MonoBehaviour {
     public static SwipeMobileDetector instance;
-	
-	private float fingerStartTime  = 0.0f;
+    public bool isPulando = false, isSubindo = false, isDescendo = false;
+    public float speed = 0f;
+
+    private float fingerStartTime  = 0.0f;
 	private Vector2 fingerStartPos = Vector2.zero;
 	
 	private bool isSwipe = false;
@@ -71,20 +73,8 @@ public class SwipeMobileDetector : MonoBehaviour {
 						
 						if(swipeType.x != 0.0f){
 							if(swipeType.x > 0.0f){
-								// MOVE RIGHT
-								//BroadcastMessage("SwipeRight");
-                                    if (!(this.transform.position.x == E.x))
-                                    {
-                                        if (!(this.transform.position.x == C.x))
-                                        {
-                                            this.transform.position = C;
-                                        }
-                                        else this.transform.position = E;
-                                    }
-                                }
-                                else{
-								// MOVE LEFT
-								//BroadcastMessage("SwipeLeft");
+                                    // MOVE RIGHT
+                                    //BroadcastMessage("SwipeRight");
                                     if (!(this.transform.position.x == D.x))
                                     {
                                         if (!(this.transform.position.x == C.x))
@@ -94,13 +84,55 @@ public class SwipeMobileDetector : MonoBehaviour {
                                         else this.transform.position = D;
                                     }
                                 }
+                                else{
+                                    // MOVE LEFT
+                                    //BroadcastMessage("SwipeLeft");
+                                    if (!(this.transform.position.x == E.x))
+                                    {
+                                        if (!(this.transform.position.x == C.x))
+                                        {
+                                            this.transform.position = C;
+                                        }
+                                        else this.transform.position = E;
+                                    }
+                                    
+                                }
 						}
 						
 						if(swipeType.y != 0.0f ){
 							if(swipeType.y > 0.0f){
-								// MOVE UP
-								BroadcastMessage("SwipeUp");
-							}else{
+                                    Debug.Log("swipe up");
+                                    if (!isPulando)
+                                    {
+                                        isPulando = true;
+                                        isSubindo = true;
+                                    }
+                                    if (isPulando)
+                                    {
+                                        if (this.transform.position.y < 10 && isSubindo)
+                                        {
+                                            this.transform.position = new Vector3(transform.position.x, transform.position.y + (speed * Time.deltaTime), transform.position.z);
+                                        }
+                                        else if (this.transform.position.y > 10 || isDescendo)
+                                        {
+                                            if (this.transform.position.y > 0)
+                                            {
+                                                isSubindo = false;
+                                                isDescendo = true;
+                                            }
+                                            else isDescendo = false;
+                                            this.transform.position = new Vector3(transform.position.x, transform.position.y - ((speed * 0.75f) * Time.deltaTime), transform.position.z);
+                                        }
+                                        else
+                                        {
+                                            isPulando = false;
+                                        }
+                                    
+
+                                    BroadcastMessage("SwipeUp");
+                                }
+                            }
+                            else{
 								// MOVE DOWN
 								BroadcastMessage("SwipeDown");
 							}

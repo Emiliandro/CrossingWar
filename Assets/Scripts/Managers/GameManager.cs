@@ -12,6 +12,11 @@ public class GameManager : MonoBehaviour {
 	public GameObject logo;
 	private float interval = 1;
     private float nextTime = 0;
+    int filtro = 0;
+
+    public AudioSource ouvido;
+    public AudioClip[] menu;
+    public AudioClip[] gameplay;
     // Use this for initialization
     void Start()
     {
@@ -19,12 +24,15 @@ public class GameManager : MonoBehaviour {
         scenes[1].SetActive(false); //painel de sobre
         scenes[2].SetActive(false); //painel de game
         scenes[3].SetActive(false); //painel de game
+        ouvido.clip = menu[Random.Range(0, menu.Length)];
+        ouvido.Play();
     }
 
-    void Awake() {
+    void Awake()
+    {
         interval = 1.5f;
         nextTime = 0;
-}
+    }
     // Paineis //
 
     public void PlayIt() {
@@ -33,6 +41,8 @@ public class GameManager : MonoBehaviour {
         scenes[1].SetActive(false); //painel de sobre
         scenes[2].SetActive(true); //painel de game
         scenes[3].SetActive(false); //painel de game
+        ouvido.clip = gameplay[Random.Range(0, gameplay.Length)];
+        ouvido.Play();
         SwipeDetector.instance.GameStarted();
         SwipeMobileDetector.instance.GameStarted();
     }
@@ -58,14 +68,14 @@ public class GameManager : MonoBehaviour {
         scenes[2].SetActive(false); //painel de game
         scenes[3].SetActive(false); //painel de game
     }
-    public void SairJogo() {
-		interval = 1.5f;
+    public void SairJogo(string cena) {
+		interval = 1;
 		nextTime = 0;
-        SceneManager.LoadScene(Application.loadedLevel);
+        SceneManager.LoadScene(cena);
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
 	{
 		if (scenes[0].activeSelf)
 		{
@@ -79,18 +89,21 @@ public class GameManager : MonoBehaviour {
         {
             MenuInicial.SetActive(false);
         }
-    }
-    void FixedUpdate() {
         if (Time.time >= nextTime)
         {
-            Invoke("CreateObstacle", interval);
-            nextTime += interval;
+            if (filtro == 0)
+            CreateObstacle();
         }
-    }
+}
 
     void CreateObstacle()
     {
-        GameObject obstacle = faixas[Random.Range(0, faixas.Length)].faixas;
-        Instantiate(obstacle);
+        if (Time.time >= nextTime)
+        {
+            GameObject obstacle = faixas[Random.Range(0, faixas.Length)].faixas;
+            Instantiate(obstacle);
+            nextTime += interval;
+        }
+
     }
 }
