@@ -107,13 +107,11 @@ public class SwipeMobileDetector : MonoBehaviour {
                                     //BroadcastMessage("SwipeRight");
                                     if (!(this.transform.position.x == D.x))
                                     {
-                                        if (!(Player.transform.position.x == C.x))
-                                        {
-                                        }
-                                        else if (Player.transform.position.x == E.x)
+                                        if (!(Player.transform.position.x == C.x) && Player.transform.position.x == E.x)
                                         {
                                             Player.transform.position = C;
                                         }
+                                        
                                         else Player.transform.position = D;
                                     }
                                 }
@@ -122,7 +120,7 @@ public class SwipeMobileDetector : MonoBehaviour {
                                     //BroadcastMessage("SwipeLeft");
                                     if (!(Player.transform.position.x == E.x))
                                     {
-                                        if (!(Player.transform.position.x == C.x))
+                                        if (!(Player.transform.position.x == C.x) && Player.transform.position.x == D.x)
                                         {
                                             Player.transform.position = C;
                                         }

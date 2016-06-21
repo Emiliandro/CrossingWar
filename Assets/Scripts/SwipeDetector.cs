@@ -124,7 +124,7 @@ public class SwipeDetector : MonoBehaviour {
 		BroadcastMessage("SwipeLeft");*/
         if (!(this.transform.position.x == E.x))
         {
-            if (!(this.transform.position.x == C.x))
+            if (!(this.transform.position.x == C.x) && this.transform.position.x == D.x)
             {
                 this.transform.position = C;
             }
@@ -138,7 +138,7 @@ public class SwipeDetector : MonoBehaviour {
 		BroadcastMessage("SwipeRight");*/
         if (!(this.transform.position.x == D.x))
         {
-            if (!(this.transform.position.x == C.x))
+            if (!(this.transform.position.x == C.x) && this.transform.position.x == E.x)
             {
                 this.transform.position = C;
             }
