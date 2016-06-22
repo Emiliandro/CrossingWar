@@ -2,11 +2,8 @@
 using System.Collections;
 
 public class SwipeDetector : MonoBehaviour {
-    public static SwipeDetector instance;
-    public bool isPulando = false, isSubindo = false, isDescendo = false;
-    public float speed = 0f;
-
-    private const int mMessageWidth  = 200;
+	
+	private const int mMessageWidth  = 200;
 	private const int mMessageHeight = 64;
 	
 	private readonly Vector2 mXAxis = new Vector2(1, 0);
@@ -22,55 +19,18 @@ public class SwipeDetector : MonoBehaviour {
 	// should be at least mMinVelocity
 	// Reduce or increase to control the swipe speed
 	private const float mMinVelocity  = 400.0f;
+	
 	private Vector2 mStartPosition;
 	private float mSwipeStartTime;
-
-    private bool start = false;
-    private Vector3 E, C, D;
 	
 	// Use this for initialization
 	void Start () {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        E = new Vector3(24, 0, 0);
-        C = new Vector3(14, 0, 0);
-        D = new Vector3(4, 0, 0);
-
-    }
-
-    public void GameStarted()
-    {
-        start = true;
-    }
+	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (isPulando)
-        {
-            if (this.transform.position.y < 15 && isSubindo)
-            {
-                this.transform.position = new Vector3(transform.position.x, transform.position.y + ((speed +1) * Time.deltaTime), transform.position.z);
-            }
-            else if (this.transform.position.y > 15 || isDescendo)
-            {
-                if (this.transform.position.y > 0)
-                {
-                    isSubindo = false;
-                    isDescendo = true;
-                }
-                else isDescendo = false;
-                this.transform.position = new Vector3(transform.position.x, transform.position.y - ((speed + 3) * Time.deltaTime), transform.position.z);
-            }
-            else
-            {
-                isPulando = false;
-            }
-        }
-
-        // Mouse button down, possible chance for a swipe
-        if (Input.GetMouseButtonDown(0)) {
+		// Mouse button down, possible chance for a swipe
+		if (Input.GetMouseButtonDown(0)) {
 			// Record start time and position
 			mStartPosition = new Vector2(Input.mousePosition.x,
 			                             Input.mousePosition.y);
@@ -98,17 +58,17 @@ public class SwipeDetector : MonoBehaviour {
 
 
 				// Detect left and right swipe
-				if ((angleOfSwipe < mAngleRange) && start) {
+				if (angleOfSwipe < mAngleRange) {
 					OnSwipeRight();
-				} else if (((180.0f - angleOfSwipe) < mAngleRange) && start) {
+				} else if ((180.0f - angleOfSwipe) < mAngleRange) {
 					OnSwipeLeft();
 				} else {
 					// Detect top and bottom swipe
 					angleOfSwipe = Vector2.Dot(swipeVector, mYAxis);
 					angleOfSwipe = Mathf.Acos(angleOfSwipe) * Mathf.Rad2Deg;
-					if ((angleOfSwipe < mAngleRange)&& start) {
+					if (angleOfSwipe < mAngleRange) {
 						OnSwipeTop();
-					} else if (((180.0f - angleOfSwipe) < mAngleRange)&& start) {
+					} else if ((180.0f - angleOfSwipe) < mAngleRange) {
 						OnSwipeBottom();
 					} else {
 						// no swipe detected
@@ -120,46 +80,22 @@ public class SwipeDetector : MonoBehaviour {
 
 	
 	private void OnSwipeLeft() {
-        /*Debug.Log ("swipe left");
-		BroadcastMessage("SwipeLeft");*/
-        if (!(this.transform.position.x == E.x))
-        {
-            if (!(this.transform.position.x == C.x) && this.transform.position.x == D.x)
-            {
-                this.transform.position = new Vector3(C.x, this.transform.position.y, this.transform.position.z);
-            }
-            else this.transform.position = new Vector3(E.x, this.transform.position.y, this.transform.position.z);
-        }
-        
+		Debug.Log ("swipe left");
+		BroadcastMessage("SwipeLeft");
 	}
 	
 	private void OnSwipeRight() {
-        /*Debug.Log ("swipe right");
-		BroadcastMessage("SwipeRight");*/
-        if (!(this.transform.position.x == D.x))
-        {
-            if (!(this.transform.position.x == C.x) && this.transform.position.x == E.x)
-            {
-                this.transform.position = new Vector3(C.x, this.transform.position.y, this.transform.position.z);
-            }
-            else this.transform.position = new Vector3(D.x, this.transform.position.y, this.transform.position.z);
-        }
-    }
+		Debug.Log ("swipe right");
+		BroadcastMessage("SwipeRight");
+	}
 	
 	private void OnSwipeTop() {
 		Debug.Log ("swipe up");
-        if (!isPulando)
-        {
-            isPulando = true;
-            isSubindo = true;
-        }
-
-        Debug.Log("swipe up");
-
-    }
-
-    private void OnSwipeBottom() {
+		BroadcastMessage("SwipeUp");
+	}
+	
+	private void OnSwipeBottom() {
 		Debug.Log ("swipe down");
-		//BroadcastMessage("SwipeDown");
+		BroadcastMessage("SwipeDown");
 	}
 }

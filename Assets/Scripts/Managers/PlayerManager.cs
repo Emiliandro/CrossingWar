@@ -5,8 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour {
+    public static PlayerManager instance;
     public float speed = 0f;
-    public bool isPulando = false, isSubindo = false, isDescendo = false;
+    public bool InGame = false, isPulando = false, isSubindo = false, isDescendo = false, inCentro = true, inEsquerda = false, inDireita = false;
     //public Text texto;
     public int total;
     public GameObject char1;
@@ -14,43 +15,47 @@ public class PlayerManager : MonoBehaviour {
     public GameObject char3;
     public AudioSource ouvido;
     public GameObject blood;
+
+    void Start()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
     void Update()
     {
- 
-        //if (Input.GetKey(KeyCode.Space))
-       // {
-          //  if (!isPulando)
-         //   {
-          //      isPulando = true;
-          //      isSubindo = true;
-          //  }
-       // }
-       // if (isPulando)
-      //  {
-         //   if (this.transform.position.y < 10 && isSubindo)
-           // {
-          //      this.transform.position = new Vector3(transform.position.x, transform.position.y + (speed * Time.deltaTime), transform.position.z);
-          //  }else if (this.transform.position.y > 10 || isDescendo)
-           // {
-             //   if (this.transform.position.y > 0)
-             //   {
-             //       isSubindo = false;
-             //       isDescendo = true;
-              //  }
-              //  else isDescendo = false;
-              //  this.transform.position = new Vector3(transform.position.x, transform.position.y - ((speed +4) * Time.deltaTime), transform.position.z);
-            //}
-           // else
-           // {
-               // isPulando = false;
-            //}
-        //}
+        if (isPulando)
+        {
+           if (this.transform.position.y < 15 && isSubindo)
+           {
+                this.transform.position = new Vector3(transform.position.x, transform.position.y + (speed * Time.deltaTime), transform.position.z);
+            }else if (this.transform.position.y > 15 || isDescendo)
+            {
+               if (this.transform.position.y > 0)
+               {
+                   isSubindo = false;
+                   isDescendo = true;
+               }
+               else isDescendo = false;
+               this.transform.position = new Vector3(transform.position.x, transform.position.y - ((speed +4) * Time.deltaTime), transform.position.z);
+            }
+            else
+            {
+                isPulando = false;
+            }
+        }
     
+    }
+    public void GameStated()
+    {
+        InGame = true;
     }
     void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Mortais")
         {
+            InGame = false;
             BloodSpawn();
 
         }
@@ -109,5 +114,98 @@ public class PlayerManager : MonoBehaviour {
         Destroy(gameObject);
         Time.timeScale = 0.1f;
         ouvido.Stop();
+    }
+
+    void SwipeUp()
+    {
+
+        if (!InGame)
+        {
+            return;
+        }
+
+
+        if (!isPulando)
+        {
+
+            if (!isPulando)
+            {
+                isPulando = true;
+                isSubindo = true;
+            }
+        }
+        Debug.Log("Consumindo Swipe Cima");
+    }
+
+    void SwipeLeft()
+    {
+
+        if (!InGame)
+        {
+            return;
+        }
+
+
+        if (!inEsquerda)
+        {
+            if (!inCentro)
+            {
+                inCentro = true;
+                inEsquerda = false;
+                inDireita = false;
+                JumpCentro();
+
+            }
+            else
+            {
+                inCentro = false;
+                inEsquerda = true;
+                inDireita = false;
+                JumpEsquerda();
+            }            
+        }
+        Debug.Log("Consumindo Swipe Esquerda");
+    }
+
+    void SwipeRight()
+    {
+
+        if (!InGame)
+        {
+            return;
+        }
+
+
+        if (!inDireita)
+        {
+            if (!inCentro)
+            {
+                inCentro = true;
+                inEsquerda = false;
+                inDireita = false;
+                JumpCentro();
+
+            }
+            else
+            {
+                inCentro = false;
+                inEsquerda = false;
+                inDireita = true;
+                JumpDireita();
+            }
+        }
+        Debug.Log("Consumindo Swipe Direita");
+    }
+    void JumpCentro()
+    {
+        transform.position = new Vector3(14, transform.position.y, transform.position.z);
+    }
+    void JumpEsquerda()
+    {
+        transform.position = new Vector3(24, transform.position.y, transform.position.z);
+    }
+    void JumpDireita()
+    {
+        transform.position = new Vector3(04, transform.position.y, transform.position.z);
     }
 }

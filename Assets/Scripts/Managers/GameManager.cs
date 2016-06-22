@@ -44,8 +44,7 @@ public class GameManager : MonoBehaviour {
         ouvido.clip = gameplay[Random.Range(0, gameplay.Length)];
         ouvido.Play();
         CoinManager.instance.RestartScore();
-        SwipeDetector.instance.GameStarted();
-        //SwipeMobileDetector.instance.GameStarted();
+        PlayerManager.instance.GameStated();
     }
     public void LerSobre() {
         Time.timeScale = 0;
