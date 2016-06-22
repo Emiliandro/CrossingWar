@@ -15,6 +15,7 @@ public class PlayerManager : MonoBehaviour {
     public GameObject char3;
     public AudioSource ouvido;
     public GameObject blood;
+    public GameObject gameOver, gameOn;
 
     void Start()
     {
@@ -110,6 +111,8 @@ public class PlayerManager : MonoBehaviour {
 
     void BloodSpawn()
     {
+        gameOn.SetActive(false);
+        gameOver.SetActive(true);
         Instantiate(blood, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
         Destroy(gameObject);
         Time.timeScale = 0.1f;
