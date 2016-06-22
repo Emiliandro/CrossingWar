@@ -38,37 +38,60 @@ public class SwipeMobileDetector : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if (isPulando)
-        {
-            if (Player.transform.position.y < 20 && isSubindo)
-            {
-                Player.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + ((speed + 1) * Time.deltaTime), Player.transform.position.z);
-            }
-            else if (Player.transform.position.y > 20 || isDescendo)
-            {
-                if (Player.transform.position.y > 0)
-                {
-                    isSubindo = false;
-                    isDescendo = true;
-                }
-                else isDescendo = false;
-                Player.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y - ((speed + 3) * Time.deltaTime), Player.transform.position.z);
-            }
-            else
-            {
-                isPulando = false;
-            }
-
-
-        }
     }
 
+    void Left()
+    {
+        if (!(Player.transform.position.x == E.x))
+        {
+            if (!(Player.transform.position.x == C.x) && Player.transform.position.x == D.x)
+            {
+                Player.transform.position = new Vector3(C.x, this.transform.position.y, this.transform.position.z);
+            }
+            else Player.transform.position = new Vector3(E.x, this.transform.position.y, this.transform.position.z);
+        }
+    }
+    void Right()
+    {
+        if (!(this.transform.position.x == D.x))
+        {
+            if (!(Player.transform.position.x == C.x) && Player.transform.position.x == E.x)
+            {
+                Player.transform.position = new Vector3(C.x, this.transform.position.y, this.transform.position.z);
+            }
+
+            else Player.transform.position = new Vector3(D.x, this.transform.position.y, this.transform.position.z);
+        }
+    }
     // Update is called once per frame
     void Update () {
 		
 		if (Input.touchCount > 0){
-			
-			foreach (Touch touch in Input.touches)
+
+            if (isPulando)
+            {
+                if (Player.transform.position.y < 20 && isSubindo)
+                {
+                    Player.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + ((speed + 1) * Time.deltaTime), Player.transform.position.z);
+                }
+                else if (Player.transform.position.y > 20 || isDescendo)
+                {
+                    if (Player.transform.position.y > 0)
+                    {
+                        isSubindo = false;
+                        isDescendo = true;
+                    }
+                    else isDescendo = false;
+                    Player.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y - ((speed + 3) * Time.deltaTime), Player.transform.position.z);
+                }
+                else
+                {
+                    isPulando = false;
+                }
+
+
+            }
+            foreach (Touch touch in Input.touches)
 			{
 				switch (touch.phase)
 				{
@@ -105,27 +128,12 @@ public class SwipeMobileDetector : MonoBehaviour {
 							if(swipeType.x > 0.0f){
                                     // MOVE RIGHT
                                     //BroadcastMessage("SwipeRight");
-                                    if (!(this.transform.position.x == D.x))
-                                    {
-                                        if (!(Player.transform.position.x == C.x) && Player.transform.position.x == E.x)
-                                        {
-                                            Player.transform.position = new Vector3(C.x, this.transform.position.y, this.transform.position.z);
-                                        }
-                                        
-                                        else Player.transform.position = new Vector3(D.x, this.transform.position.y, this.transform.position.z);
-                                    }
+                                    Right();
                                 }
                                 else{
                                     // MOVE LEFT
                                     //BroadcastMessage("SwipeLeft");
-                                    if (!(Player.transform.position.x == E.x))
-                                    {
-                                        if (!(Player.transform.position.x == C.x) && Player.transform.position.x == D.x)
-                                        {
-                                            Player.transform.position = new Vector3(C.x, this.transform.position.y, this.transform.position.z);
-                                        }
-                                        else Player.transform.position = new Vector3(E.x, this.transform.position.y, this.transform.position.z);
-                                    }
+                                    Left();
                                     
                                 }
 						}

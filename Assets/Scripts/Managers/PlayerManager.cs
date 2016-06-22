@@ -13,44 +13,46 @@ public class PlayerManager : MonoBehaviour {
     public GameObject char2;
     public GameObject char3;
     public AudioSource ouvido;
+    public GameObject blood;
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
-        {
-            if (!isPulando)
-            {
-                isPulando = true;
-                isSubindo = true;
-            }
-        }
-        if (isPulando)
-        {
-            if (this.transform.position.y < 10 && isSubindo)
-            {
-                this.transform.position = new Vector3(transform.position.x, transform.position.y + (speed * Time.deltaTime), transform.position.z);
-            }else if (this.transform.position.y > 10 || isDescendo)
-            {
-                if (this.transform.position.y > 0)
-                {
-                    isSubindo = false;
-                    isDescendo = true;
-                }
-                else isDescendo = false;
-                this.transform.position = new Vector3(transform.position.x, transform.position.y - ((speed +4) * Time.deltaTime), transform.position.z);
-            }
-            else
-            {
-                isPulando = false;
-            }
-        }
+ 
+        //if (Input.GetKey(KeyCode.Space))
+       // {
+          //  if (!isPulando)
+         //   {
+          //      isPulando = true;
+          //      isSubindo = true;
+          //  }
+       // }
+       // if (isPulando)
+      //  {
+         //   if (this.transform.position.y < 10 && isSubindo)
+           // {
+          //      this.transform.position = new Vector3(transform.position.x, transform.position.y + (speed * Time.deltaTime), transform.position.z);
+          //  }else if (this.transform.position.y > 10 || isDescendo)
+           // {
+             //   if (this.transform.position.y > 0)
+             //   {
+             //       isSubindo = false;
+             //       isDescendo = true;
+              //  }
+              //  else isDescendo = false;
+              //  this.transform.position = new Vector3(transform.position.x, transform.position.y - ((speed +4) * Time.deltaTime), transform.position.z);
+            //}
+           // else
+           // {
+               // isPulando = false;
+            //}
+        //}
+    
     }
     void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Mortais")
         {
-            Destroy(gameObject);
-            Time.timeScale = 0;
-            ouvido.Stop();
+            BloodSpawn();
+
         }
 
         if (collision.gameObject.tag == "money")
@@ -99,5 +101,13 @@ public class PlayerManager : MonoBehaviour {
                     char3.SetActive(true);
                     break;
             }
+    }
+
+    void BloodSpawn()
+    {
+        Instantiate(blood, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+        Destroy(gameObject);
+        Time.timeScale = 0.1f;
+        ouvido.Stop();
     }
 }

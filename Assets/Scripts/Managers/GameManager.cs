@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour {
     public Faixas[] faixasG;
     public Faixas[] faixasDCE;
     public float intervalo;
-	public GameObject logo;
 	private float interval = 1.0f;
     private float nextTime = 0;
     int filtro = 0;
@@ -81,23 +80,15 @@ public class GameManager : MonoBehaviour {
 	{
 		if (scenes[0].activeSelf || scenes[3].activeSelf)
 		{
-			logo.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
 		} else if (scenes[1].activeSelf)
 		{
-			logo.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
 
 		}
         if (scenes[2].activeSelf)
         {
             MenuInicial.SetActive(false);
         }
-        if (Time.time >= nextTime)
-        {
-            if (filtro == 0)
-            CreateObstacle();
-            //CreateGround();
-        }
-        
+        deltaCreate();
     }
 
     void CreateObstacle()
@@ -107,6 +98,17 @@ public class GameManager : MonoBehaviour {
             GameObject obstacle = faixasDCE[Random.Range(0, faixasDCE.Length)].faixas;
             Instantiate(obstacle);
             nextTime += interval;
+        }
+
+    }
+
+    void deltaCreate()
+    {
+        if (Time.time >= nextTime)
+        {
+            if (filtro == 0)
+                CreateObstacle();
+            //CreateGround();
         }
 
     }

@@ -17,10 +17,16 @@ public class CoinManager : MonoBehaviour {
         nextTime = 0;
     }
     // Update is called once per frame
-    void FixedUpdate () {
+    void FixedUpdate ()
+    {
+        MaisPontos();
+    }
+
+    void MaisPontos()
+    {
         if (Time.time >= nextTime)
         {
-            _score ++;
+            _score++;
             nextTime += interval;
             texto.text = (Mathf.RoundToInt(_score)).ToString();
         }
