@@ -18,13 +18,17 @@ public class CoinManager : MonoBehaviour {
     }
     // Update is called once per frame
 
+    void Update() {
+        texto.text = _score.ToString();
+    }
+
     public void RestartScore()
     {
         _score = 0;
     }
     public void BoostMoney()
     {
-        _score += 5;
+        _score += 2;
     }
     void SaveScore()
     {

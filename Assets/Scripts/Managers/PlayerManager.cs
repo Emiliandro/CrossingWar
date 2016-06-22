@@ -63,6 +63,7 @@ public class PlayerManager : MonoBehaviour {
 
         if (collision.gameObject.tag == "money")
         {
+           
             CoinManager.instance.BoostMoney();
             Destroy(collision.gameObject);
             //texto.text = (Mathf.RoundToInt(total)).ToString();
@@ -210,5 +211,11 @@ public class PlayerManager : MonoBehaviour {
     void JumpDireita()
     {
         transform.position = new Vector3(04, transform.position.y, transform.position.z);
+    }
+
+    void SwipeDown()
+    {
+        transform.position = new Vector3(14, transform.position.y, transform.position.z);
+
     }
 }
