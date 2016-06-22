@@ -126,9 +126,9 @@ public class SwipeDetector : MonoBehaviour {
         {
             if (!(this.transform.position.x == C.x) && this.transform.position.x == D.x)
             {
-                this.transform.position = C;
+                this.transform.position = new Vector3(C.x, this.transform.position.y, this.transform.position.z);
             }
-            else this.transform.position = E;
+            else this.transform.position = new Vector3(E.x, this.transform.position.y, this.transform.position.z);
         }
         
 	}
@@ -140,9 +140,9 @@ public class SwipeDetector : MonoBehaviour {
         {
             if (!(this.transform.position.x == C.x) && this.transform.position.x == E.x)
             {
-                this.transform.position = C;
+                this.transform.position = new Vector3(C.x, this.transform.position.y, this.transform.position.z);
             }
-            else this.transform.position = D;
+            else this.transform.position = new Vector3(D.x, this.transform.position.y, this.transform.position.z);
         }
     }
 	
@@ -160,6 +160,6 @@ public class SwipeDetector : MonoBehaviour {
 
     private void OnSwipeBottom() {
 		Debug.Log ("swipe down");
-		BroadcastMessage("SwipeDown");
+		//BroadcastMessage("SwipeDown");
 	}
 }

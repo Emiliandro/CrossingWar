@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class PlayerManager : MonoBehaviour {
     public float speed = 0f;
     public bool isPulando = false, isSubindo = false, isDescendo = false;
-    public Text texto;
+    //public Text texto;
     public int total;
     public GameObject char1;
     public GameObject char2;
@@ -55,37 +55,25 @@ public class PlayerManager : MonoBehaviour {
 
         if (collision.gameObject.tag == "money")
         {
-            total++;
+            CoinManager.instance.BoostMoney();
             Destroy(collision.gameObject);
-            texto.text = (Mathf.RoundToInt(total)).ToString();
+            //texto.text = (Mathf.RoundToInt(total)).ToString();
 
         }
     }
     public void CharacterSelectionSoldier()
     {
-
-        
         SetCharacterSelecionado(0);
-        //PlayerPrefs.SetInt ("Reload",1);
-        //Application.LoadLevel("Main");
-
     }
 
     public void CharacterSelectionNazie()
     {
-
-
-        //PlayerPrefs.SetInt ("Reload",1);
         SetCharacterSelecionado(1);
-        //Application.LoadLevel("Main");
     }
 
     public void CharacterSelectionZumbie()
     {
-
-        //PlayerPrefs.SetInt ("Reload",1);
         SetCharacterSelecionado(2);
-        //Application.LoadLevel("Main");
     }
 
     void SetCharacterSelecionado(int selected)

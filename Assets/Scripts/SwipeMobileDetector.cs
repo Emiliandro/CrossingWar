@@ -109,10 +109,10 @@ public class SwipeMobileDetector : MonoBehaviour {
                                     {
                                         if (!(Player.transform.position.x == C.x) && Player.transform.position.x == E.x)
                                         {
-                                            Player.transform.position = C;
+                                            Player.transform.position = new Vector3(C.x, this.transform.position.y, this.transform.position.z);
                                         }
                                         
-                                        else Player.transform.position = D;
+                                        else Player.transform.position = new Vector3(D.x, this.transform.position.y, this.transform.position.z);
                                     }
                                 }
                                 else{
@@ -122,9 +122,9 @@ public class SwipeMobileDetector : MonoBehaviour {
                                     {
                                         if (!(Player.transform.position.x == C.x) && Player.transform.position.x == D.x)
                                         {
-                                            Player.transform.position = C;
+                                            Player.transform.position = new Vector3(C.x, this.transform.position.y, this.transform.position.z);
                                         }
-                                        else Player.transform.position = E;
+                                        else Player.transform.position = new Vector3(E.x, this.transform.position.y, this.transform.position.z);
                                     }
                                     
                                 }
@@ -142,7 +142,7 @@ public class SwipeMobileDetector : MonoBehaviour {
                             }
                             else{
 								// MOVE DOWN
-								BroadcastMessage("SwipeDown");
+								//BroadcastMessage("SwipeDown");
 							}
 						}
 						

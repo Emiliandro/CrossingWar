@@ -7,10 +7,11 @@ public class GameManager : MonoBehaviour {
 
     public GameObject[] scenes;
     public GameObject MenuInicial;
-    public Faixas[] faixas;
+    public Faixas[] faixasG;
+    public Faixas[] faixasDCE;
     public float intervalo;
 	public GameObject logo;
-	private float interval = 1;
+	private float interval = 1.0f;
     private float nextTime = 0;
     int filtro = 0;
 
@@ -43,8 +44,9 @@ public class GameManager : MonoBehaviour {
         scenes[3].SetActive(false); //painel de game
         ouvido.clip = gameplay[Random.Range(0, gameplay.Length)];
         ouvido.Play();
+        CoinManager.instance.RestartScore();
         SwipeDetector.instance.GameStarted();
-        SwipeMobileDetector.instance.GameStarted();
+        //SwipeMobileDetector.instance.GameStarted();
     }
     public void LerSobre() {
         Time.timeScale = 0;
@@ -68,10 +70,10 @@ public class GameManager : MonoBehaviour {
         scenes[2].SetActive(false); //painel de game
         scenes[3].SetActive(false); //painel de game
     }
-    public void SairJogo(string cena) {
+    public void SairJogo() {
 		interval = 1;
 		nextTime = 0;
-        SceneManager.LoadScene(cena);
+        SceneManager.LoadScene(Application.loadedLevel);
     }
 
     // Update is called once per frame
@@ -93,17 +95,25 @@ public class GameManager : MonoBehaviour {
         {
             if (filtro == 0)
             CreateObstacle();
+            //CreateGround();
         }
-}
+        
+    }
 
     void CreateObstacle()
     {
         if (Time.time >= nextTime)
         {
-            GameObject obstacle = faixas[Random.Range(0, faixas.Length)].faixas;
+            GameObject obstacle = faixasDCE[Random.Range(0, faixasDCE.Length)].faixas;
             Instantiate(obstacle);
             nextTime += interval;
         }
 
+    }
+    void CreateGround()
+    {
+            Debug.Log("ativou");
+            GameObject Ground = faixasG[Random.Range(0, faixasG.Length)].faixas;
+            Instantiate(Ground);
     }
 }
