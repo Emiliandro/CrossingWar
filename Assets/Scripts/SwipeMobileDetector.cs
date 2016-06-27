@@ -8,8 +8,8 @@ public class SwipeMobileDetector : MonoBehaviour {
 	private Vector2 fingerStartPos = Vector2.zero;
 	
 	private bool isSwipe = false;
-	private float minSwipeDist  = 50.0f;
-	private float maxSwipeTime = 0.5f;
+	private float minSwipeDist  = 100.0f;
+	private float maxSwipeTime = 0.75f;
 	
 	// Update is called once per frame
 	void Update () {
