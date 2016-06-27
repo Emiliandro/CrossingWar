@@ -73,16 +73,21 @@ public class PlayerManager : MonoBehaviour {
     public void CharacterSelectionSoldier()
     {
         SetCharacterSelecionado(0);
+        //BroadcastMessage("PlayIt");
     }
 
     public void CharacterSelectionNazie()
     {
         SetCharacterSelecionado(1);
+       // BroadcastMessage("PlayIt");
+
     }
 
     public void CharacterSelectionZumbie()
     {
         SetCharacterSelecionado(2);
+        //BroadcastMessage("PlayIt");
+
     }
 
     void SetCharacterSelecionado(int selected)
