@@ -8,11 +8,11 @@ public class SwipeMobileDetector : MonoBehaviour {
 	private Vector2 fingerStartPos = Vector2.zero;
 	
 	private bool isSwipe = false;
-	private float minSwipeDist  = 100.0f;
+	private float minSwipeDist  = 50.0f;
 	private float maxSwipeTime = 0.75f;
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		
 		if (Input.touchCount > 0){
 			
@@ -24,7 +24,7 @@ public class SwipeMobileDetector : MonoBehaviour {
 					/* this is a new touch */
 					isSwipe = true;
 					fingerStartTime = Time.time;
-					fingerStartPos = touch.position;
+					fingerStartPos = touch.deltaPosition;
 					break;
 					
 				case TouchPhase.Canceled :
@@ -35,10 +35,10 @@ public class SwipeMobileDetector : MonoBehaviour {
 				case TouchPhase.Ended :
 					
 					float gestureTime = Time.time - fingerStartTime;
-					float gestureDist = (touch.position - fingerStartPos).magnitude;
+					float gestureDist = (touch.deltaPosition - fingerStartPos).magnitude;
 					
 					if (isSwipe && gestureTime < maxSwipeTime && gestureDist > minSwipeDist){
-						Vector2 direction = touch.position - fingerStartPos;
+						Vector2 direction = touch.deltaPosition - fingerStartPos;
 						Vector2 swipeType = Vector2.zero;
 						
 						if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y)){

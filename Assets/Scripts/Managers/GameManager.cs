@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour {
         {
             MenuInicial.SetActive(false);
         }
-        deltaCreate();
+        //deltaCreate();
     }
 
     void CreateObstacle()
